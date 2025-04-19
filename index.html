@@ -1,24 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Nudge Umfrage</title>
+    <title>Startseite</title>
 </head>
 <body>
-<h1>Willst du nachhaltiger handeln?</h1>
-<button onclick="setDecision(true)">Ja</button>
-<button onclick="setDecision(false)">Nein</button>
-
-<script>
-    if (!localStorage.getItem("userId")) {
-        const id = "user_" + Date.now() + "_" + Math.floor(Math.random() * 1000);
-        localStorage.setItem("userId", id);
-    }
-    function setDecision(value) {
-        localStorage.setItem("committed", value);
-        localStorage.setItem("badge", value ? "true" : "false");
-        window.location.href = "questionnaire.html";
-    }
-</script>
+<h1>Willkommen!</h1>
+<p>Klicke auf den Button, um den Fragebogen zu starten:</p>
+<a href="questionnaire.html">
+    <button>Fragebogen öffnen</button>
+</a>
 </body>
 </html>

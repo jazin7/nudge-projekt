@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <title>Fragebogen</title>
@@ -7,40 +7,42 @@
 <body>
 <h2>Fragebogen</h2>
 
-<label>Wie stark identifizierst du dich mit Umweltverhalten? (1–5)</label><br>
-<input type="range" min="1" max="5" id="identity"><br><br>
+<label>Wie umweltbewusst fühlst du dich? (1–5)</label><br />
+<input type="range" id="identity" min="1" max="5" value="3"><br /><br />
 
-<label>Wie frei hast du dich bei deiner Entscheidung gefühlt? (1–5)</label><br>
-<input type="range" min="1" max="5" id="freedom"><br><br>
+<label>Wie frei hast du dich bei der Entscheidung gefühlt? (1–5)</label><br />
+<input type="range" id="freedom" min="1" max="5" value="3"><br /><br />
 
-<label>Was hast du gewählt?</label><br>
+<label>Was hast du gewählt?</label><br />
 <select id="decision">
-    <option value="rent">Leihen</option>
-    <option value="buy">Kaufen</option>
-</select><br><br>
+    <option value="kaufen">Kaufen</option>
+    <option value="leihen">Leihen</option>
+</select><br /><br />
 
-<button onclick="submitData()">Absenden</button>
+<button onclick="sendData()">Absenden</button>
 
 <script>
-    function submitData() {
-        const data = {
-            userId: localStorage.getItem("userId"),
-            committed: localStorage.getItem("committed"),
-            badge: localStorage.getItem("badge"),
+    function sendData() {
+        const payload = {
+            userId: crypto.randomUUID(),
+            committed: new Date().toISOString(),
             decision: document.getElementById("decision").value,
+            badge: "",
             identity: document.getElementById("identity").value,
             freedom: document.getElementById("freedom").value
         };
 
-        fetch("https://script.google.com/macros/s/AKfycbxiS09Tel0n181v-YdrRbI_OjQ9Vmo6ookZEJS6OC7ZabxIfDTLz4iA-HqrAeVK-uVk/exec", {
+        const url = "https://script.google.com/macros/s/AKfycbzjGRcQzhstJ1BSfIP7cJtrBH_6WHfUMoG32fqBOXw5UNJJ8qUWge3pu7aKn6tDrJge/exec";
+        const formData = new FormData();
+        formData.append("data", JSON.stringify(payload));
+
+        fetch(url, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
-        }).then(() => {
-            alert("Danke! Deine Antwort wurde gespeichert.");
-        }).catch(() => {
-            alert("Fehler beim Speichern.");
-        });
+            body: formData
+        })
+            .then(res => res.text())
+            .then(text => alert("✅ " + text))
+            .catch(err => alert("❌ Fehler beim Senden: " + err.message));
     }
 </script>
 </body>
