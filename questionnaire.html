@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Fragebogen</title>
+</head>
+<body>
+<h2>Fragebogen</h2>
+
+<label>Wie sehr siehst du dich als umweltbewusst? (1–5)</label><br>
+<input type="range" min="1" max="5" id="identity"><br><br>
+
+<label>Wie frei hast du dich bei der Entscheidung gefühlt? (1–5)</label><br>
+<input type="range" min="1" max="5" id="freedom"><br><br>
+
+<label>Was hast du gewählt?</label><br>
+<select id="decision">
+    <option value="rent">Leihen</option>
+    <option value="buy">Kaufen</option>
+</select><br><br>
+
+<button onclick="submitData()">Absenden</button>
+
+<script>
+    function submitData() {
+        const data = {
+            userId: localStorage.getItem("userId"),
+            committed: localStorage.getItem("committed"),
+            badge: localStorage.getItem("badge"),
+            identity: document.getElementById("identity").value,
+            freedom: document.getElementById("freedom").value,
+            decision: document.getElementById("decision").value
+        };
+
+        fetch("https://script.google.com/macros/s/AKfycbwkXw8JI_k8m5L4AdTgCMgDAqXLKFdIyN49wjhvQpNd9vUG-mioy6Mnk6Hy1__KE1KC/exec", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(res => {
+                alert("Danke! Deine Daten wurden gespeichert.");
+                // Optional: zur Bestätigungsseite oder wieder zur Startseite
+            })
+            .catch(() => {
+                alert("Fehler beim Senden!");
+            });
+    }
+</script>
+</body>
+</html>
