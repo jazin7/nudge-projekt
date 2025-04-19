@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>Fragebogen</title>
@@ -7,10 +7,10 @@
 <body>
 <h2>Fragebogen</h2>
 
-<label>Wie sehr siehst du dich als umweltbewusst? (1–5)</label><br>
+<label>Wie stark identifizierst du dich mit Umweltverhalten? (1–5)</label><br>
 <input type="range" min="1" max="5" id="identity"><br><br>
 
-<label>Wie frei hast du dich bei der Entscheidung gefühlt? (1–5)</label><br>
+<label>Wie frei hast du dich bei deiner Entscheidung gefühlt? (1–5)</label><br>
 <input type="range" min="1" max="5" id="freedom"><br><br>
 
 <label>Was hast du gewählt?</label><br>
@@ -27,25 +27,20 @@
             userId: localStorage.getItem("userId"),
             committed: localStorage.getItem("committed"),
             badge: localStorage.getItem("badge"),
+            decision: document.getElementById("decision").value,
             identity: document.getElementById("identity").value,
-            freedom: document.getElementById("freedom").value,
-            decision: document.getElementById("decision").value
+            freedom: document.getElementById("freedom").value
         };
 
-        fetch("https://script.google.com/macros/s/AKfycbzRajKkqsYVTWUZFuB4pw-zGUYdUt1094H6H_lMjR3mgfylQdYvHTwJYonE1ClfkjnK/exec", {
+        fetch("https://script.google.com/macros/s/AKfycbxiS09Tel0n181v-YdrRbI_OjQ9Vmo6ookZEJS6OC7ZabxIfDTLz4iA-HqrAeVK-uVk/exec", {
             method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-            .then(res => {
-                alert("Danke! Deine Daten wurden gespeichert.");
-                // Optional: zur Bestätigungsseite oder wieder zur Startseite
-            })
-            .catch(() => {
-                alert("Fehler beim Senden!");
-            });
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        }).then(() => {
+            alert("Danke! Deine Antwort wurde gespeichert.");
+        }).catch(() => {
+            alert("Fehler beim Speichern.");
+        });
     }
 </script>
 </body>
