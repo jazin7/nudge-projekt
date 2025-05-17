@@ -2,50 +2,144 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fragebogen</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f7f8;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 600px;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .radio-group {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
+        }
+
+        .radio-group label {
+            font-weight: normal;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            margin-top: 30px;
+            width: 100%;
+            padding: 12px;
+            background-color: #2b9348;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #238b3e;
+        }
+    </style>
 </head>
 <body>
-<h2>Fragebogen</h2>
+<div class="container">
+    <h2>Fragebogen</h2>
 
-<label>Wie sehr siehst du dich als umweltbewusst? (1–5)</label><br>
-<input type="range" min="1" max="5" id="identity" /><br><br>
+    <label>Wie sehr siehst du dich als umweltbewusst?</label>
+    <div class="radio-group" id="identity">
+        <label><input type="radio" name="identity" value="1"> 1</label>
+        <label><input type="radio" name="identity" value="2"> 2</label>
+        <label><input type="radio" name="identity" value="3"> 3</label>
+        <label><input type="radio" name="identity" value="4"> 4</label>
+        <label><input type="radio" name="identity" value="5"> 5</label>
+    </div>
 
-<label>Wie frei hast du dich bei der Entscheidung gefühlt? (1–5)</label><br>
-<input type="range" min="1" max="5" id="freedom" /><br><br>
+    <label>Wie frei hast du dich bei der Entscheidung gefühlt?</label>
+    <div class="radio-group" id="freedom">
+        <label><input type="radio" name="freedom" value="1"> 1</label>
+        <label><input type="radio" name="freedom" value="2"> 2</label>
+        <label><input type="radio" name="freedom" value="3"> 3</label>
+        <label><input type="radio" name="freedom" value="4"> 4</label>
+        <label><input type="radio" name="freedom" value="5"> 5</label>
+    </div>
 
-<label>Was hast du gewählt?</label><br>
-<select id="decision">
-    <option value="leihen">Leihen</option>
-    <option value="kaufen">Kaufen</option>
-</select><br><br>
+    <label>Was hast du gewählt?</label>
+    <select id="decision">
+        <option value="leihen">Leihen</option>
+        <option value="kaufen">Kaufen</option>
+    </select>
 
-<button onclick="submitData()">Absenden</button>
+    <button onclick="submitData()">Absenden</button>
+</div>
 
 <script>
+    function getRadioValue(name) {
+        const radios = document.getElementsByName(name);
+        for (const radio of radios) {
+            if (radio.checked) return radio.value;
+        }
+        return null;
+    }
+
     function submitData() {
+        const identity = getRadioValue("identity");
+        const freedom = getRadioValue("freedom");
+
+        if (!identity || !freedom) {
+            alert("Bitte wähle für alle Fragen eine Antwort aus.");
+            return;
+        }
+
         const data = {
             userId: localStorage.getItem("userId") || "anonymous_" + Date.now(),
             committed: localStorage.getItem("committed") || "false",
             badge: localStorage.getItem("badge") || "false",
-            identity: document.getElementById("identity").value,
-            freedom: document.getElementById("freedom").value,
+            identity: identity,
+            freedom: freedom,
             decision: document.getElementById("decision").value
         };
-
-        const url = "https://script.google.com/macros/s/DEIN_SCRIPT_ID/exec"; // ✅ hier deine URL einfügen!
+        //asdss
+        const url = "https://script.google.com/macros/s/AKfycbzjGRcQzhstJ1BSfIP7cJtrBH_6WHfUMoG32fqBOXw5UNJJ8qUWge3pu7aKn6tDrJge/exec";
+        const formData = new FormData();
+        formData.append("data", JSON.stringify(data));
 
         fetch(url, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
+            body: formData
         })
-            .then((res) => res.text())
-            .then((text) => {
+            .then(res => res.text())
+            .then(text => {
                 alert("✅ Vielen Dank für deine Teilnahme!");
+                window.location.href = "index.html";
             })
-            .catch((err) => {
+            .catch(err => {
                 alert("❌ Fehler beim Senden: " + err.message);
             });
     }
