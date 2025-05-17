@@ -2,13 +2,29 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Startseite</title>
+    <title>Precommitment</title>
 </head>
 <body>
-<h1>Willkommen!</h1>
-<p>Klicke auf den Button, um den Fragebogen zu starten:</p>
-<a href="questionnaire.html">
-    <button>Fragebogen öffnen</button>
-</a>
+<h1>Willst du nachhaltiger handeln?</h1>
+<button onclick="commit(true)">Ja, ich entscheide mich dafür</button>
+<button onclick="commit(false)">Nein, das ist mir egal</button>
+
+<script>
+    if (!localStorage.getItem("userId")) {
+        const id = "user_" + Date.now() + "_" + Math.floor(Math.random() * 10000);
+        localStorage.setItem("userId", id);
+    }
+
+    function commit(value) {
+        localStorage.setItem("committed", value);
+        if (value) {
+            localStorage.setItem("badge", true);
+        } else {
+            localStorage.setItem("badge", false);
+        }
+        // Weiter zur Fragebogenseite
+        window.location.href = "questionnaire.html";
+    }
+</script>
 </body>
 </html>
