@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Willkommen</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f7f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 700px;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #2b9348;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        button {
+            padding: 12px 28px;
+            background-color: #2b9348;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #238b3e;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Willkommen zum Experiment</h1>
+    <p>
+        Stell dir vor, du befindest dich in einer Renovierungssituation.<br>
+        Du benötigst eine Bohrmaschine, hast aber noch keine. Du wirst nun durch eine fiktive Online-Plattform geführt,
+        auf der du Werkzeuge auswählen kannst. <br><br>
+        <strong>Wichtig:</strong> Es handelt sich um ein wissenschaftliches Experiment im Rahmen einer Bachelorarbeit.
+        Alle Entscheidungen sind fiktiv. Du kaufst oder leihst nichts wirklich und es werden keine persönlichen Daten gespeichert.
+    </p>
+
+    <button onclick="startExperiment()">Experiment starten</button>
+</div>
+
+<script>
+    function startExperiment() {
+        window.location.href = "experiment.html";
+    }
+</script>
+</body>
+</html>
