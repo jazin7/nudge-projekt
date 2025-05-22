@@ -83,7 +83,7 @@
     <select id="gender">
         <option value="männlich">Männlich</option>
         <option value="weiblich">Weiblich</option>
-        <option value="nicht-binär">Divers</option>
+        <option value="divers">Divers</option>
         <option value="keine Angabe">Keine Angabe</option>
     </select>
 
@@ -227,11 +227,11 @@
         })
             .then(res => res.text())
             .then(() => {
-                alert("✅ Danke für deine Teilnahme!");
+                alert("Danke für deine Teilnahme!");
                 window.location.href = "welcome.html";
             })
             .catch(err => {
-                alert("❌ Fehler beim Senden: " + err.message);
+                alert("Fehler beim Senden: " + err.message);
             });
     }
 
