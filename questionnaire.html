@@ -197,28 +197,28 @@
             employment: document.getElementById("employment").value
         };
 
-        // Likert-Werte
         for (let i = 1; i <= 3; i++) data[`esi_${i}`] = getValue(`esi_${i}`);
         for (let i = 1; i <= 7; i++) data[`freedom_${i}`] = getValue(`freedom_${i}`);
         for (let i = 1; i <= 7; i++) data[`use_${i}`] = getValue(`use_${i}`);
 
-        const url = "https://script.google.com/macros/s/AKfycbwFSY2IA6_ZobpbX0x4s6Vpk6ppC-4STjOzyJRW1M3IEObcCfYmR0wnnlK3CxHs-3wm/exec";
+        const formData = new FormData();
+        formData.append("data", JSON.stringify(data));
 
-
+        const url = "https://script.google.com/macros/s/AKfycbzjGRcQzhstJ1BSfIP7cJtrBH_6WHfUMoG32fqBOXw5UNJJ8qUWge3pu7aKn6tDrJge/exec";
         fetch(url, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
+            body: formData
         })
-            .then((res) => res.text())
+            .then(res => res.text())
             .then(() => {
-                alert("Danke für deine Teilnahme!");
+                alert("✅ Danke für deine Teilnahme!");
                 window.location.href = "welcome.html";
             })
-            .catch((err) => {
-                alert("Fehler beim Senden: " + err.message);
+            .catch(err => {
+                alert("❌ Fehler beim Senden: " + err.message);
             });
     }
+
 </script>
 </body>
 </html>
