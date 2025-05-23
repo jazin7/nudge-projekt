@@ -197,8 +197,8 @@
 
 <!-- Nudge-Popup -->
 <div id="nudgePopup" class="popup">
-    <h2>Verhalte dich nachhaltig?</h2>
-    <p>Möchtest du dich aktiv dafür entscheiden, nachhaltiger zu handeln – z. B. durch Leihen statt Kaufen?</p>
+    <h2>Nachhaltig entscheiden?</h2>
+    <p>Möchtest du dabei helfen, nachhaltigere Entscheidungen zu treffen, z.B. durch bewussten Konsum, Leihen oder das Wiederverwenden von Produkten?</p>
     <button class="button" onclick="handleNudge(true)">Ja</button>
     <button class="button" onclick="handleNudge(false)">Nein</button>
 </div>
@@ -208,7 +208,7 @@
     <canvas id="confettiCanvas" class="confetti"></canvas>
     <img src="badge.jpg" alt="Badge" class="badge-img" />
     <h2>🎉 Gratulation!</h2>
-    <p>Du bist Teil der Nachhaltigkeits-Challenge!</p>
+    <p>Du bist nun Teil der Nachhaltigkeits-Challenge!</p>
     <button class="button" onclick="closeBadge()">Weiter</button>
 </div>
 
@@ -221,8 +221,9 @@
 
 <!-- Adressformular -->
 <div id="addressForm" class="form-popup hidden">
-    <h2>Adresse (frei ausfüllbar)</h2>
-    <p><strong>Diese Daten werden nicht gespeichert.</strong></p>
+    <h2>Lieferdetails</h2>
+    <p>Diese Angaben sind freiwillig und werden <strong>nicht gespeichert</strong>.<br>
+        Du kannst die Felder auch leer lassen und trotzdem fortfahren.</p>
     <input type="text" placeholder="Name"><br>
     <input type="text" placeholder="Straße"><br>
     <input type="text" placeholder="Ort"><br>
@@ -234,23 +235,23 @@
     <div class="products">
         <h2>🔧 Wähle eine Bohrmaschine</h2>
         <div class="product-grid" id="productGrid">
-            <div class="product" onclick="selectProduct(this, 'Schwarz', 'schwarz.jpg')">
+            <div class="product" onclick="selectProduct(this, 'Schwarze', 'schwarz.jpg')">
                 <img src="schwarz.jpg" alt="Schwarz" />
                 <p>Schwarze Bohrmaschine</p>
             </div>
-            <div class="product" onclick="selectProduct(this, 'Weiß', 'weiss.jpg')">
+            <div class="product" onclick="selectProduct(this, 'Weiße', 'weiss.jpg')">
                 <img src="weiss.jpg" alt="Weiß" />
                 <p>Weiße Bohrmaschine</p>
             </div>
-            <div class="product" onclick="selectProduct(this, 'Blau', 'blau.jpg')">
+            <div class="product" onclick="selectProduct(this, 'Blaue', 'blau.jpg')">
                 <img src="blau.jpg" alt="Blau" />
                 <p>Blaue Bohrmaschine</p>
             </div>
-            <div class="product" onclick="selectProduct(this, 'Rot', 'rot.jpg')">
+            <div class="product" onclick="selectProduct(this, 'Rote', 'rot.jpg')">
                 <img src="rot.jpg" alt="Rot" />
                 <p>Rote Bohrmaschine</p>
             </div>
-            <div class="product" onclick="selectProduct(this, 'Grün', 'gruen.jpg')">
+            <div class="product" onclick="selectProduct(this, 'Grüne', 'gruen.jpg')">
                 <img src="gruen.jpg" alt="Grün" />
                 <p>Grüne Bohrmaschine</p>
             </div>
@@ -258,13 +259,15 @@
     </div>
 
     <div class="cart" id="cart">
-        <h3>🛒 Dein Warenkorb</h3>
+        <h2>🛒 Dein Warenkorb</h2>
         <div id="cartContent">
-            <p>Keine Auswahl</p>
+            <p>Dein Warenkorb ist leer.<br>
+                Bitte wähle ein Produkt aus.
+            </p>
         </div>
         <div class="actions hidden" id="cartActions">
             <button class="remove" onclick="clearSelection()">Auswahl entfernen</button>
-            <label for="decisionSelect"><strong>Möchtest du kaufen oder leihen?</strong></label>
+            <label for="decisionSelect"><strong>Möchtest du das Produkt kaufen oder leihen?</strong></label>
             <select id="decisionSelect" onchange="toggleSharedInfo()">
                 <option value="" disabled selected hidden>Bitte auswählen</option>
                 <option value="kaufen">Kaufen</option>
@@ -272,8 +275,16 @@
             </select>
             <button class="checkout" onclick="showForm()" disabled>Checkout</button>
             <div class="info-box hidden" id="sharedBox">
-                <strong>💡 Was ist Shared Economy?</strong><br />
-                Shared Economy bedeutet, dass man Dinge nutzt, ohne sie zu besitzen – z. B. durch Leihen statt Kaufen.
+                <strong>💡 Wie funktioniert das Leihen?</strong> <br>
+                <p>
+                    Beim Leihen wird eine Kaution in Höhe von 60 € hinterlegt, die nach Rückgabe vollständig zurückerstattet wird,
+                    sofern das Gerät unbeschädigt ist. Die Rückgabe erfolgt entweder postalisch oder direkt vor Ort.
+                    Die tatsächlichen Mietkosten (z. B. 13 €/Tag) werden nach der Rückgabe basierend
+                    auf der Anzahl der Tage berechnet. Es entstehen keine weiteren Verpflichtungen. <br><br>
+                    Dieses Verfahren ist typisch für Shared Economy: Produkte werden gemeinsam genutzt, um Ressourcen zu schonen und
+                    unnötige Anschaffungen zu vermeiden.
+                </p>
+
             </div>
         </div>
     </div>
@@ -310,19 +321,29 @@
         element.classList.add("selected");
         selectedProduct = { name, img: imgSrc };
         document.getElementById("cartContent").innerHTML = `
-      <img src="${imgSrc}" alt="${name}" />
-      <p><strong>${name} Bohrmaschine</strong></p>
-      <p><strong>Kaufen:</strong> 120€<br><strong>Leihen:</strong> 13€/Tag</p>
-    `;
+          <img src="${imgSrc}" alt="${name}" />
+          <p style="font-size: 20px;"><strong>${name} Bohrmaschine</strong></p>
+          <p>Inklusive 18V Akku & Ladegerät.<br>
+             Geeignet für Holz, Metall und Fliesen.<br>
+             Mit einstellbarer Schraubkraft und regelbarer Drehzahl.</p>
+          <p style="font-size:13px; color:#444;">
+             🔒 Bitte bei der Nutzung die Sicherheitshinweise beachten und geeignete Schutzkleidung tragen.
+          </p>
+
+          <p style="font-size: 20px;"><strong>Kaufen:</strong> 120€<br>
+             <strong>Leihen:</strong> 13€/Tag zzgl. 60€ <strong>Kaution</strong></p>
+
+        `;
         document.getElementById("cartActions").classList.remove("hidden");
         document.querySelector(".checkout").disabled = true;
         document.getElementById("decisionSelect").value = "";
     }
 
+
     function clearSelection() {
         document.querySelectorAll(".product").forEach(p => p.classList.remove("selected"));
         selectedProduct = null;
-        document.getElementById("cartContent").innerHTML = "<p>Keine Auswahl</p>";
+        document.getElementById("cartContent").innerHTML = "<p>Dein Warenkorb ist leer.<br>Bitte wähle ein Produkt aus.</p>";
         document.getElementById("cartActions").classList.add("hidden");
         document.getElementById("sharedBox").classList.add("hidden");
     }
