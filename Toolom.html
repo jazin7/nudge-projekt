@@ -328,6 +328,16 @@
         }
     }
 
+    /*
+    //NO NUDGE
+    function handleNudge(accepted) {
+        document.getElementById("nudgePopup").classList.add("hidden");
+        localStorage.setItem("committed", accepted ? "Ja" : "Nein");
+        document.getElementById("infoSavedBadge").classList.remove("hidden");
+    }
+    //NO NUDGE
+    */
+
     function closeBadge() {
         document.getElementById("successBadge").classList.add("hidden");
         document.getElementById("mainContent").classList.remove("hidden");
@@ -385,7 +395,7 @@
     function submitDecision() {
         const decision = document.getElementById("decisionSelect").value;
         localStorage.setItem("decision", decision);
-        window.location.href = "questionnaire.html";
+        window.location.href = "Fragebogen.html";
     }
 
     function startConfetti() {
