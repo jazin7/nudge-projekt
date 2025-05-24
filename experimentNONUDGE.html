@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Experiment</title>
     <style>
+        .site-header {
+            background-color: #2b9348;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .site-title {
+            margin: 0;
+        }
+
         body {
             margin: 0;
             font-family: 'Segoe UI', sans-serif;
@@ -192,6 +206,11 @@
     </style>
 </head>
 <body>
+<header class="site-header">
+    <div class="site-title">🛠️  Toolom – Werkzeuge mieten & kaufen</div>
+</header>
+
+
 
 <div id="addressOverlay" class="overlay hidden"></div>
 
@@ -305,7 +324,6 @@
         document.getElementById("infoSavedBadge").classList.remove("hidden");
     }
     //NO NUDGE
-
 
     function closeBadge() {
         document.getElementById("successBadge").classList.add("hidden");
