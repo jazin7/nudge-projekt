@@ -262,7 +262,7 @@
         <h2>🛒 Ihr Warenkorb</h2>
         <div id="cartContent">
             <p>Ihr Warenkorb ist leer.<br>
-                Bitte wähle ein Produkt aus.
+                Bitte wählen Sie ein Produkt aus.
             </p>
         </div>
         <div class="actions hidden" id="cartActions">
@@ -346,7 +346,7 @@
     function clearSelection() {
         document.querySelectorAll(".product").forEach(p => p.classList.remove("selected"));
         selectedProduct = null;
-        document.getElementById("cartContent").innerHTML = "<p>Ihr Warenkorb ist leer.<br>Bitte wähle ein Produkt aus.</p>";
+        document.getElementById("cartContent").innerHTML = "<p>Ihr Warenkorb ist leer.<br>Bitte wählen Sie ein Produkt aus.</p>";
         document.getElementById("cartActions").classList.add("hidden");
         document.getElementById("sharedBox").classList.add("hidden");
     }
